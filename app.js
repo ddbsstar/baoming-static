@@ -53,7 +53,7 @@ voucher.querySelector('a').onclick=()=>voucher.close();
 voucher.addEventListener('click',e=>{if(e.target===voucher){const r=voucher.getBoundingClientRect();if(e.clientY<r.top||e.clientX<r.left||e.clientX>r.right) voucher.close()}});
 function renderRegistration(){
  nav.hidden=true;document.title=title;
- page.innerHTML=`<section class="registration-page"><div class="registration-notice"><span class="info-circle">i</span>填写后自动保存在当前浏览器，支持<a href="#registration/1">快速填写</a></div><div class="registration-fields"><h2>提交项目 <em>*</em></h2><div class="registration-product"><div class="product-icon">${icon('edit')}</div><div><strong>成都远征押金</strong><span>￥50</span></div><span class="product-selected">已选择1</span></div><div class="registration-field"><label for="registration-name">姓名 <em>*</em></label><div class="readonly-field"><input id="registration-name" readonly value="范慧明"></div></div><div class="registration-field"><label for="registration-phone">手机号 <em>*</em></label><div class="readonly-field"><input id="registration-phone" type="tel" inputmode="tel" autocomplete="off" maxlength="20" placeholder="请输入手机号"><button class="quick-fill">一键填写</button></div></div><div class="registration-field"><label for="registration-id">身份证号 <em>*</em></label><p class="field-help">支持大陆身份证、港澳居民来往内地通行证、台胞证</p><div class="readonly-field"><input id="registration-id" type="text" autocomplete="off" maxlength="32" placeholder="请输入身份证号"></div></div></div><div class="registration-payment"><div><span>已支付：</span><button class="paid-detail">50元 &gt;</button></div><div><span>非粉丝：</span><span>大恐怖了 &gt;</span></div><div><span>提交：</span><span>2026-10-21 19:10:20</span></div></div><footer class="registration-toolbar"><button class="registration-more">☰ 更 多</button><button class="registration-edit">▣ 保 存</button><button class="registration-number">${icon('ticket')}编号480</button></footer></section>`;
+ page.innerHTML=`<section class="registration-page"><div class="registration-notice"><span class="info-circle">i</span>填写后自动保存在当前浏览器，支持<a href="#registration/1">快速填写</a></div><div class="registration-fields"><h2>提交项目 <em>*</em></h2><div class="registration-product"><div class="product-icon">${icon('edit')}</div><div><strong>成都远征押金</strong><span>￥50</span></div><span class="product-selected">已选择1</span></div><div class="registration-field"><label for="registration-name">姓名 <em>*</em></label><div class="readonly-field"><input id="registration-name" readonly value="范慧明"></div></div><div class="registration-field"><label for="registration-phone">手机号 <em>*</em></label><div class="readonly-field"><input id="registration-phone" type="tel" inputmode="tel" autocomplete="off" maxlength="20" placeholder="请输入手机号"><button class="quick-fill">一键填写</button></div></div><div class="registration-field"><label for="registration-id">身份证号 <em>*</em></label><p class="field-help">支持大陆身份证、港澳居民来往内地通行证、台胞证</p><div class="readonly-field"><input id="registration-id" type="text" autocomplete="off" maxlength="32" placeholder="请输入身份证号"></div></div></div><div class="registration-payment"><div><span>已支付：</span><button class="paid-detail">50元 &gt;</button></div><div><span>非粉丝：</span><span>大恐怖了 &gt;</span></div><div><span>提交：</span><span>2026-10-21 19:10:20</span></div></div><footer class="registration-toolbar"><button class="registration-more">☰ 更 多</button><button class="registration-edit">▣ 保 存</button><button class="registration-number">${icon('ticket')}编号668</button></footer></section>`;
  page.querySelector('.registration-more').onclick=()=>{location.hash='activity/1'};
  const phone=page.querySelector('#registration-phone');
  const identity=page.querySelector('#registration-id');
@@ -73,20 +73,20 @@ function renderRegistration(){
  page.querySelector('.registration-edit').onclick=()=>{if(saveContact(true))lockFilledFields()};
  page.querySelector('.quick-fill').onclick=()=>{phone.value='';identity.value='';phone.readOnly=false;identity.readOnly=false;saveContact();phone.focus()};
  page.querySelector('.paid-detail').onclick=()=>notice('成都远征押金 · 已支付50元');
- page.querySelector('.registration-number').onclick=()=>notice('编号480 · 未核销');
+ page.querySelector('.registration-number').onclick=()=>notice('编号668 · 未核销');
 }
 
 function ticketGeneratedTime(){const d=new Date();const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`}
 function renderTicket(){
  nav.hidden=true;document.title=title;
  const generated=ticketGeneratedTime();
- page.innerHTML=`<section class="ticket-page"><article class="ticket-card"><div class="ticket-summary"><h1>${title}</h1><p>参与：范慧明</p><p>已选：成都远征押金 × 1</p><p>费用：50元 <a href="#registration/1">查看 &gt;</a></p><p>提交：2026-10-21 19:10:20</p></div><div class="ticket-divider"><span>${generated}生成</span></div><div class="ticket-validation"><div><div class="ticket-qr-blank" aria-label="二维码留空"></div><p>该凭证可扫码查看或核销</p></div><div><div class="ticket-number-blank" aria-label="编号留空"></div><p>递增唯一编号</p></div></div></article><button class="save-ticket-image">保存图片</button><div class="ticket-options"><button data-ticket-option="subscribe"><strong>订阅通知</strong><small>不错过提醒</small></button><button data-ticket-option="transfer"><strong>转让名额</strong><small>转好友或他人</small></button><button data-ticket-option="faq"><strong>常见问题</strong><small>查看更多 &gt;</small></button></div></section>`;
+ page.innerHTML=`<section class="ticket-page"><article class="ticket-card"><div class="ticket-summary"><h1>${title}</h1><p>参与：范慧明</p><p>已选：成都远征押金 × 1</p><p>费用：50元 <a href="#registration/1">查看 &gt;</a></p><p>提交：2026-10-21 19:10:20</p></div><div class="ticket-divider"><span>${generated}生成</span></div><div class="ticket-validation"><div><img class="ticket-qr-image" src="assets/voucher-qr-668.jpg" alt="凭证二维码"><p>该凭证可扫码查看或核销</p></div><div><div class="ticket-number-blank" aria-label="编号668">668</div><p>递增唯一编号</p></div></div></article><button class="save-ticket-image">保存图片</button><div class="ticket-options"><button data-ticket-option="subscribe"><strong>订阅通知</strong><small>不错过提醒</small></button><button data-ticket-option="transfer"><strong>转让名额</strong><small>转好友或他人</small></button><button data-ticket-option="faq"><strong>常见问题</strong><small>查看更多 &gt;</small></button></div></section>`;
  page.querySelector('.save-ticket-image').onclick=()=>saveTicketImage(generated);
  page.querySelector('[data-ticket-option="subscribe"]').onclick=()=>notice('此静态页面暂不支持通知订阅');
  page.querySelector('[data-ticket-option="transfer"]').onclick=()=>notice('此活动不允许转让');
- page.querySelector('[data-ticket-option="faq"]').onclick=()=>notice('二维码与编号暂未填写；报名信息可从费用旁的“查看”进入');
+ page.querySelector('[data-ticket-option="faq"]').onclick=()=>notice('报名信息可从费用旁的“查看”进入');
 }
-function saveTicketImage(generated){
+async function saveTicketImage(generated){
  const canvas=document.createElement('canvas');canvas.width=1064;canvas.height=1224;
  const ctx=canvas.getContext('2d');if(!ctx){notice('当前浏览器不支持保存图片');return}
  ctx.scale(2,2);ctx.fillStyle='#fff';ctx.fillRect(0,0,532,612);ctx.fillStyle='#333';
@@ -95,6 +95,8 @@ function saveTicketImage(generated){
  textLines.forEach((text,i)=>ctx.fillText(text,28,48+i*34));
  ctx.font='20px sans-serif';['参与：范慧明','已选：成都远征押金 × 1','费用：50元','提交：2026-10-21 19:10:20'].forEach((text,i)=>ctx.fillText(text,28,150+i*40));
  ctx.strokeStyle='#e6e6e6';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(0,310);ctx.lineTo(532,310);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#fff';ctx.fillRect(151,295,230,30);ctx.fillStyle='#aaa';ctx.font='16px sans-serif';ctx.textAlign='center';ctx.fillText(generated+'生成',266,316);
+ const qr=new Image();qr.src='assets/voucher-qr-668.jpg';try{await qr.decode();ctx.drawImage(qr,43,348,180,163)}catch{notice('二维码加载失败，请稍后重试');return}
+ ctx.fillStyle='#00ace8';ctx.font='40px sans-serif';ctx.fillText('668',400,451);
  ctx.strokeStyle='#00ace8';ctx.lineWidth=4;ctx.beginPath();ctx.arc(400,438,65,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#333';ctx.font='18px sans-serif';ctx.fillText('该凭证可扫码查看或核销',133,568);ctx.fillText('递增唯一编号',400,568);
  const link=document.createElement('a');link.download='我的凭证.png';link.href=canvas.toDataURL('image/png');document.body.append(link);link.click();link.remove();
 }
