@@ -76,3 +76,7 @@ window.addEventListener('hashchange',route);route();
 
 
 document.addEventListener('dblclick',event=>{if(!event.target.closest('input,textarea,[contenteditable]'))event.preventDefault()},{passive:false});
+
+// Block pinch gestures while allowing one-finger scrolling and form interaction.
+['gesturestart','gesturechange','gestureend'].forEach(type=>document.addEventListener(type,event=>event.preventDefault(),{passive:false}));
+document.addEventListener('touchmove',event=>{if(event.touches.length>1)event.preventDefault()},{passive:false});
