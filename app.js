@@ -59,16 +59,19 @@ function renderRegistration(){
  const identity=page.querySelector('#registration-id');
  const cacheKey='baoming.registration.1.contact.v1';
  function restoreContact(){
-  try{const cached=JSON.parse(localStorage.getItem(cacheKey)||'{}');phone.value=typeof cached.phone==='string'?cached.phone:'';identity.value=typeof cached.identity==='string'?cached.identity:'';return true}catch{return false}
+  try{const cached=JSON.parse(localStorage.getItem(cacheKey)||'{}');phone.value=typeof cached.phone==='string'?cached.phone:'';identity.value=typeof cached.identity==='string'?cached.identity:'';lockFilledFields();return true}catch{return false}
  }
  function saveContact(announce=false){
   try{localStorage.setItem(cacheKey,JSON.stringify({phone:phone.value,identity:identity.value}));if(announce)notice('已保存到当前浏览器');return true}catch{notice('浏览器无法保存，请允许本地存储后重试');return false}
  }
+ function lockFilledFields(){phone.readOnly=!!phone.value.trim();identity.readOnly=!!identity.value.trim()}
  restoreContact();
  phone.addEventListener('input',()=>saveContact());
  identity.addEventListener('input',()=>saveContact());
- page.querySelector('.registration-edit').onclick=()=>saveContact(true);
- page.querySelector('.quick-fill').onclick=()=>notice(restoreContact()?'已填入本机保存的信息':'暂无可读取的本机信息');
+ phone.addEventListener('blur',()=>{saveContact();phone.readOnly=!!phone.value.trim()});
+ identity.addEventListener('blur',()=>{saveContact();identity.readOnly=!!identity.value.trim()});
+ page.querySelector('.registration-edit').onclick=()=>{if(saveContact(true))lockFilledFields()};
+ page.querySelector('.quick-fill').onclick=()=>{phone.value='';identity.value='';phone.readOnly=false;identity.readOnly=false;saveContact();phone.focus()};
  page.querySelector('.paid-detail').onclick=()=>notice('成都远征押金 · 已支付50元');
  page.querySelector('.registration-number').onclick=()=>notice('编号480 · 未核销');
 }
