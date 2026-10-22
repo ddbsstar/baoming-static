@@ -98,3 +98,4 @@ html,body,button,a,input{touch-action:pan-x pan-y}
 
 #registration-phone:read-only,#registration-id:read-only{color:#aaa}.readonly-field:has(input:read-only):focus-within{border-color:#ddd}
 .ticket-qr-image{display:block;width:120px;height:108px;object-fit:contain;margin:0 auto}.ticket-number-blank{display:flex;align-items:center;justify-content:center;font-size:29px;color:#00ace8}
+.ticket-qr-image{width:108px;height:108px;object-fit:contain}
