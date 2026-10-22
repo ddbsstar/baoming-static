@@ -90,3 +90,5 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFa
 #registration-phone,#registration-id{color:#555}#registration-phone::placeholder,#registration-id::placeholder{color:#aaa}.readonly-field:focus-within{border-color:#00ace8}
 
 html,body,button,a,input{touch-action:manipulation}#registration-phone,#registration-id{font-size:16px}
+
+.registration-buttons{flex:1;display:flex;height:39px;border:1px solid #00ace8;border-radius:5px;overflow:hidden}.registration-buttons .ticket-icon{height:100%;width:38px;border-right:1px solid #00ace8}.activity-actions .registration-buttons .view-registration{height:100%;border:0;border-radius:0;display:block;text-align:center}
