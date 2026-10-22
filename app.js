@@ -42,10 +42,10 @@ function renderDetail(index){
  page.querySelector('.view-registration').onclick=()=>{if(index===1)location.hash='registration/1';else notice('暂无报名信息')};
 }
 function notice(text){let toast=document.querySelector('.page-notice');if(toast)toast.remove();toast=document.createElement('div');toast.className='page-notice';toast.setAttribute('role','status');toast.textContent=text;document.body.append(toast);setTimeout(()=>toast.remove(),3500)}
-function route(){const hash=location.hash.slice(1);homeContent.hidden=!!hash;page.hidden=!hash;nav.hidden=false;recordsNav.querySelector('img').src=`assets/nav-${hash?'567':'566'}.png`;recordsNav.querySelector('span').classList.toggle('cen-focus',!!hash);document.querySelector('#home img').src=`assets/nav-${hash?'563':'564'}.png`;document.querySelector('#home span').classList.toggle('cen-focus',!hash);if(hash==='registration/1')renderRegistration();else if(hash==='records')renderRecords();else if(hash.startsWith('activity/'))renderDetail(Number(hash.split('/')[1]));else if(hash){location.hash='';return}else document.title='报名工具丨活动接龙统计预约';window.scrollTo(0,0)}
+function route(){const hash=location.hash.slice(1);homeContent.hidden=!!hash;page.hidden=!hash;nav.hidden=false;recordsNav.querySelector('img').src=`assets/nav-${hash?'567':'566'}.png`;recordsNav.querySelector('span').classList.toggle('cen-focus',!!hash);document.querySelector('#home img').src=`assets/nav-${hash?'563':'564'}.png`;document.querySelector('#home span').classList.toggle('cen-focus',!hash);if(hash==='voucher/1')renderTicket();else if(hash==='registration/1')renderRegistration();else if(hash==='records')renderRecords();else if(hash.startsWith('activity/'))renderDetail(Number(hash.split('/')[1]));else if(hash){location.hash='';return}else document.title='报名工具丨活动接龙统计预约';window.scrollTo(0,0)}
 
 const voucher=document.createElement('dialog');voucher.id='voucher-sheet';voucher.setAttribute('aria-labelledby','voucher-title');
-voucher.innerHTML=`<h2 id="voucher-title">我的凭证</h2><a class="voucher-row" href="#registration/1"><span><strong>范慧明</strong><small>2026-10-21 19:10</small></span><span class="voucher-status">未核销 &gt;</span></a><button class="voucher-cancel">取 消</button>`;
+voucher.innerHTML=`<h2 id="voucher-title">我的凭证</h2><a class="voucher-row" href="#voucher/1"><span><strong>范慧明</strong><small>2026-10-21 19:10</small></span><span class="voucher-status">未核销 &gt;</span></a><button class="voucher-cancel">取 消</button>`;
 document.body.append(voucher);
 function openVoucher(){voucher.showModal()}
 voucher.querySelector('.voucher-cancel').onclick=()=>voucher.close();
@@ -72,7 +72,31 @@ function renderRegistration(){
  page.querySelector('.paid-detail').onclick=()=>notice('成都远征押金 · 已支付50元');
  page.querySelector('.registration-number').onclick=()=>notice('编号480 · 未核销');
 }
+
+function ticketGeneratedTime(){const d=new Date();const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`}
+function renderTicket(){
+ nav.hidden=true;document.title=title;
+ const generated=ticketGeneratedTime();
+ page.innerHTML=`<section class="ticket-page"><article class="ticket-card"><div class="ticket-summary"><h1>${title}</h1><p>参与：范慧明</p><p>已选：成都远征押金 × 1</p><p>费用：50元 <a href="#registration/1">查看 &gt;</a></p><p>提交：2026-10-21 19:10:20</p></div><div class="ticket-divider"><span>${generated}生成</span></div><div class="ticket-validation"><div><div class="ticket-qr-blank" aria-label="二维码留空"></div><p>该凭证可扫码查看或核销</p></div><div><div class="ticket-number-blank" aria-label="编号留空"></div><p>递增唯一编号</p></div></div></article><button class="save-ticket-image">保存图片</button><div class="ticket-options"><button data-ticket-option="subscribe"><strong>订阅通知</strong><small>不错过提醒</small></button><button data-ticket-option="transfer"><strong>转让名额</strong><small>转好友或他人</small></button><button data-ticket-option="faq"><strong>常见问题</strong><small>查看更多 &gt;</small></button></div></section>`;
+ page.querySelector('.save-ticket-image').onclick=()=>saveTicketImage(generated);
+ page.querySelector('[data-ticket-option="subscribe"]').onclick=()=>notice('此静态页面暂不支持通知订阅');
+ page.querySelector('[data-ticket-option="transfer"]').onclick=()=>notice('此活动不允许转让');
+ page.querySelector('[data-ticket-option="faq"]').onclick=()=>notice('二维码与编号暂未填写；报名信息可从费用旁的“查看”进入');
+}
+function saveTicketImage(generated){
+ const canvas=document.createElement('canvas');canvas.width=1064;canvas.height=1224;
+ const ctx=canvas.getContext('2d');if(!ctx){notice('当前浏览器不支持保存图片');return}
+ ctx.scale(2,2);ctx.fillStyle='#fff';ctx.fillRect(0,0,532,612);ctx.fillStyle='#333';
+ ctx.font='bold 23px sans-serif';
+ const textLines=[];let line='';for(const char of title){if(ctx.measureText(line+char).width>470){textLines.push(line);line=char}else line+=char}if(line)textLines.push(line);
+ textLines.forEach((text,i)=>ctx.fillText(text,28,48+i*34));
+ ctx.font='20px sans-serif';['参与：范慧明','已选：成都远征押金 × 1','费用：50元','提交：2026-10-21 19:10:20'].forEach((text,i)=>ctx.fillText(text,28,150+i*40));
+ ctx.strokeStyle='#e6e6e6';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(0,310);ctx.lineTo(532,310);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#fff';ctx.fillRect(151,295,230,30);ctx.fillStyle='#aaa';ctx.font='16px sans-serif';ctx.textAlign='center';ctx.fillText(generated+'生成',266,316);
+ ctx.strokeStyle='#00ace8';ctx.lineWidth=4;ctx.beginPath();ctx.arc(400,438,65,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#333';ctx.font='18px sans-serif';ctx.fillText('该凭证可扫码查看或核销',133,568);ctx.fillText('递增唯一编号',400,568);
+ const link=document.createElement('a');link.download='我的凭证.png';link.href=canvas.toDataURL('image/png');document.body.append(link);link.click();link.remove();
+}
 window.addEventListener('hashchange',route);route();
+
 
 
 document.addEventListener('dblclick',event=>{if(!event.target.closest('input,textarea,[contenteditable]'))event.preventDefault()},{passive:false});
